@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Xolotl — un projet du BDE Honoré Romane pour accompagner les voyages éducatifs des élèves.">
+  <title>Xolotl — BDE Honoré Romane</title>
+
+  <style>
+    :root {
+      --turquoise: #65cdbc;
+      --turquoise-dark: #319f91;
+      --cream: #f5ecd8;
+      --ink: #17221f;
+      --text: #3d4945;
+      --muted: #727d79;
+      --background: #fafbf9;
+      --white: #ffffff;
+      --border: #e5ebe8;
+      --soft: #eef7f5;
+      --max-width: 1120px;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(250, 251, 249, 0.96);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
+
+    .brand span {
+      font-size: 15px;
+    }
+
+    .brand strong {
+      color: var(--turquoise-dark);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    nav a:hover {
+      color: var(--turquoise-dark);
+    }
+
+    .nav-button {
+      padding: 9px 16px;
+      border-radius: 9px;
+      background: var(--ink);
+      color: white;
+    }
+
+    .nav-button:hover {
+      background: var(--turquoise-dark);
+      color: white;
+    }
+
+    .menu {
+      display: none;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 8px;
+      padding: 8px 11px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 72px 0 78px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 70px;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 6px 11px;
+      border-radius: 100px;
+      background: var(--soft);
+      color: var(--turquoise-dark);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      color: var(--ink);
+      line-height: 1.15;
+    }
+
+    h1 {
+      max-width: 650px;
+      font-size: clamp(42px, 6vw, 68px);
+      letter-spacing: -2.5px;
+    }
+
+    h1 span {
+      color: var(--turquoise-dark);
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .hero .bde-slogan {
+      margin-top: 12px;
+      color: var(--turquoise-dark);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 9px;
+      border: 1px solid var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+
+    .button.primary {
+      background: var(--ink);
+      color: white;
+    }
+
+    .button.primary:hover {
+      background: var(--turquoise-dark);
+      border-color: var(--turquoise-dark);
+    }
+
+    .button.secondary {
+      color: var(--ink);
+      background: white;
+      border-color: var(--border);
+    }
+
+    .button.secondary:hover {
+      border-color: var(--turquoise);
+    }
+
+    .hero-logo {
+      width: min(480px, 100%);
+      margin: auto;
+    }
+
+    /* INTRO */
+
+    section {
+      padding: 82px 0;
+    }
+
+    .section-title {
+      max-width: 680px;
+      margin-bottom: 40px;
+    }
+
+    .section-label {
+      margin-bottom: 10px;
+      color: var(--turquoise-dark);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(30px, 4vw, 43px);
+      letter-spacing: -1px;
+    }
+
+    .section-title p {
+      margin: 14px 0 0;
+      color: var(--muted);
+    }
+
+    .intro {
+      background: var(--background);
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: .75fr 1.25fr;
+      gap: 70px;
+    }
+
+    .intro-copy {
+      font-size: 17px;
+    }
+
+    .intro-copy p {
+      margin: 0 0 16px;
+    }
+
+    .simple-note {
+      margin-top: 24px;
+      padding: 17px 20px;
+      border-left: 3px solid var(--turquoise);
+      background: white;
+      color: var(--text);
+    }
+
+    /* 3 SERVICES */
+
+    .services {
+      background: white;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: white;
+    }
+
+    .card-number {
+      color: var(--turquoise-dark);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .card h3 {
+      margin-top: 20px;
+      font-size: 21px;
+    }
+
+    .card p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* PROCESS */
+
+    .process {
+      background: var(--background);
+    }
+
+    .process-list {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .process-item {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 18px;
+      padding: 23px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .process-item:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .process-number {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--soft);
+      color: var(--turquoise-dark);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .process-item h3 {
+      font-size: 18px;
+    }
+
+    .process-item p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* CTA */
+
+    .contact {
+      padding-top: 30px;
+      padding-bottom: 85px;
+    }
+
+    .contact-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 30px;
+      padding: 42px;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: white;
+    }
+
+    .contact-box h2 {
+      color: white;
+      font-size: clamp(28px, 4vw, 40px);
+    }
+
+    .contact-box p {
+      max-width: 650px;
+      margin: 10px 0 0;
+      color: #b7c2be;
+    }
+
+    .contact-box .button {
+      background: var(--turquoise);
+      border-color: var(--turquoise);
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .contact-box .button:hover {
+      background: white;
+      border-color: white;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: white;
+      padding: 25px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-credit {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      text-align: right;
+    }
+
+    .footer-credit small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer-credit strong {
+      color: var(--ink);
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .footer-brand img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 850px) {
+      .menu {
+        display: block;
+      }
+
+      nav {
+        position: absolute;
+        display: none;
+        top: 80px;
+        left: 20px;
+        right: 20px;
+        padding: 10px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        box-shadow: 0 15px 40px rgba(0,0,0,.08);
+      }
+
+      nav.open {
+        display: flex;
+      }
+
+      nav a {
+        padding: 12px;
+      }
+
+      .hero-inner,
+      .intro-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+      }
+
+      .hero-logo {
+        max-width: 390px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 24px;
+      }
+
+      .contact-box {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: min(calc(100% - 28px), var(--max-width));
+      }
+
+      .header-inner {
+        min-height: 64px;
+      }
+
+      .brand span {
+        font-size: 13px;
+      }
+
+      .brand img {
+        width: 37px;
+        height: 37px;
+      }
+
+      nav {
+        top: 72px;
+        left: 14px;
+        right: 14px;
+      }
+
+      .hero {
+        padding: 45px 0 55px;
+      }
+
+      h1 {
+        letter-spacing: -1.7px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .hero-logo {
+        max-width: 310px;
+      }
+
+      section {
+        padding: 62px 0;
+      }
+
+      .intro-grid {
+        gap: 25px;
+      }
+
+      .contact {
+        padding-top: 10px;
+        padding-bottom: 60px;
+      }
+
+      .contact-box {
+        padding: 28px 23px;
+      }
+
+      .contact-box .button {
+        width: 100%;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-credit {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        text-align: left;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      * {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container header-inner">
+    <a class="brand" href="#accueil" aria-label="Accueil Xolotl">
+      <img src="./logos/Xolotl.png" alt="Logo Xolotl">
+      <span><strong>XOLOTL</strong> · BDE Honoré Romane</span>
+    </a>
+
+    <button class="menu" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
+      ☰
+    </button>
+
+    <nav aria-label="Navigation principale">
+      <a href="#projet">Le projet</a>
+      <a href="#accompagnement">Accompagnement</a>
+      <a href="#fonctionnement">Fonctionnement</a>
+      <a class="nav-button" href="#contact">Nous contacter</a>
+    </nav>
+  </div>
+</header>
+
+<main id="accueil">
+
+  <section class="hero">
+    <div class="container hero-inner">
+
+      <div>
+        <span class="tag">BDE Honoré Romane</span>
+
+        <h1>
+          Votre projet de voyage,
+          <span>notre accompagnement.</span>
+        </h1>
+
+        <p>
+          Xolotl aide les élèves à construire leurs voyages éducatifs,
+          en leur apportant un soutien financier, administratif et politique.
+        </p>
+
+        <p class="bde-slogan">
+          « Il n'y a pas que Redbull qui donne des ailes : vous aussi ! »
+        </p>
+
+        <div class="buttons">
+          <a class="button primary" href="#projet">Découvrir le projet</a>
+          <a class="button secondary" href="./mon_voyage">Organiser un voyage</a>
+        </div>
+      </div>
+
+      <div>
+        <img class="hero-logo" src="./logos/Xolotl.png" alt="Logo du projet Xolotl">
+      </div>
+
+    </div>
+  </section>
+
+  <section class="intro" id="projet">
+    <div class="container intro-grid">
+
+      <div class="section-title">
+        <div class="section-label">Le projet</div>
+        <h2>Rendre les voyages éducatifs plus accessibles.</h2>
+      </div>
+
+      <div class="intro-copy">
+        <p>
+          Inspiré de <strong>Xolotl</strong>, divinité de la mythologie aztèque
+          associée aux voyages et aux déplacements, le projet accompagne les élèves
+          dans la réalisation de leurs projets de voyage.
+        </p>
+
+        <p>
+          L’objectif est simple : ne pas laisser une bonne idée être abandonnée
+          à cause du budget, des démarches administratives ou de la difficulté
+          à faire avancer le projet.
+        </p>
+
+        <div class="simple-note">
+          <strong>Une idée suffit pour commencer.</strong><br>
+          Le projet peut être encore au stade de réflexion : nous vous aidons
+          à déterminer les prochaines étapes.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="services" id="accompagnement">
+    <div class="container">
+
+      <div class="section-title">
+        <div class="section-label">Notre accompagnement</div>
+        <h2>Trois domaines d'aide.</h2>
+        <p>Une approche claire pour répondre aux principaux besoins d'un projet.</p>
+      </div>
+
+      <div class="cards">
+
+        <article class="card">
+          <div class="card-number">01</div>
+          <h3>Aide financière</h3>
+          <p>
+            Étudier les besoins du voyage et rechercher les moyens permettant
+            d'en réduire le coût pour les élèves.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-number">02</div>
+          <h3>Aide administrative</h3>
+          <p>
+            Aider à organiser les démarches, les documents et les différentes
+            étapes nécessaires à la préparation du voyage.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-number">03</div>
+          <h3>Aide politique</h3>
+          <p>
+            Accompagner la présentation du projet et faciliter les échanges
+            avec les interlocuteurs et institutions concernés.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="process" id="fonctionnement">
+    <div class="container">
+
+      <div class="section-title">
+        <div class="section-label">Fonctionnement</div>
+        <h2>Comment ça se passe ?</h2>
+        <p>Pas de procédure compliquée. Le projet avance étape par étape.</p>
+      </div>
+
+      <div class="process-list">
+
+        <div class="process-item">
+          <div class="process-number">01</div>
+          <div>
+            <h3>Vous nous présentez votre idée</h3>
+            <p>
+              Une destination, une classe, un thème ou simplement une envie :
+              expliquez-nous ce que vous imaginez.
+            </p>
+          </div>
+        </div>
+
+        <div class="process-item">
+          <div class="process-number">02</div>
+          <div>
+            <h3>Nous faisons le point ensemble</h3>
+            <p>
+              Nous identifions les besoins, les difficultés et les solutions
+              envisageables.
+            </p>
+          </div>
+        </div>
+
+        <div class="process-item">
+          <div class="process-number">03</div>
+          <div>
+            <h3>Le projet est accompagné</h3>
+            <p>
+              Xolotl vous aide à avancer dans les différentes étapes jusqu'à
+              la concrétisation du voyage.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-box">
+
+        <div>
+          <h2>Vous avez un projet ?</h2>
+          <p>
+            Même si votre idée n'est pas encore définie, venez nous en parler.
+            Chaque voyage commence quelque part.
+          </p>
+        </div>
+
+        <!-- Remplacez # par votre formulaire ou votre adresse de contact. -->
+        <a class="button" href="./mon_voyage">Organiser un voyage →</a>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="./logos/bde.png" alt="Logo du BDE Honoré Romane">
+      <span>BDE Honoré Romane · Projet Xolotl</span>
+    </div>
+
+    <div class="footer-credit">
+      <span>« Voyager pour apprendre. »</span>
+      <small>Créé par <strong>MAIRE Anael</strong> · BDE-HR 2027</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const menuButton = document.querySelector(".menu");
+  const nav = document.querySelector("nav");
+
+  menuButton.addEventListener("click", () => {
+    const isOpen = nav.classList.toggle("open");
+    menuButton.setAttribute("aria-expanded", isOpen);
+    menuButton.textContent = isOpen ? "×" : "☰";
+  });
+
+  document.querySelectorAll("nav a").forEach(link => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.textContent = "☰";
+    });
+  });
+</script>
+
+</body>
+</html>
